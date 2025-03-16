@@ -37,7 +37,7 @@ const TopRatedFilter = () => {
       }`}
     >
       <button className="filter-btn" onClick={() => handleFilterClicked()}>
-        Top Rated Restaurants
+        Rating 4.0+
       </button>
     </div>
   );

@@ -6,6 +6,8 @@ const restaurantsSlice = createSlice({
     restaurantItems: [],
     backupItems: [],
     carouselItems: [],
+    setFilterItems: [],
+    isModalVisible: false,
     isUnserviceable: false,
   },
   reducers: {
@@ -21,6 +23,12 @@ const restaurantsSlice = createSlice({
     putCarouselItems: (state, action) => {
       state.carouselItems = action.payload;
     },
+    setFilterItems: (state, action) => {
+      state.setFilterItems = action.payload;
+    },
+    setFilterModalOpen: (state, action) => {
+      state.isModalVisible = !state.isModalVisible;
+    },
     setUnserviceable: (state) => {
       state.isUnserviceable = true;
     },
@@ -33,5 +41,7 @@ export const {
   backupRestaurants,
   putCarouselItems,
   setUnserviceable,
+  setFilterItems,
+  setFilterModalOpen,
 } = restaurantsSlice.actions;
 export default restaurantsSlice.reducer;

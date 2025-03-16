@@ -12,9 +12,8 @@ import store from "./redux/store";
 import CartPage from "./components/cart/CartPage";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import LocationSidebar from "./components/sidebar/LocationSidebar";
 import OrderSuccess from "./components/order/OrderSuccess";
-import AuthSidebar from "./components/sidebar/AuthSidebar";
+import Main from "./components/Main";
 
 const AppLayout = () => {
   const [user, setUser] = useState({
@@ -26,11 +25,7 @@ const AppLayout = () => {
     <div className="app z-1">
       <Provider store={store}>
         <UserContext.Provider value={{ user, setUser }}>
-          <Header />
-          <LocationSidebar />
-          <AuthSidebar />
-          <Outlet />
-          <Footer />
+          <Main />
         </UserContext.Provider>
       </Provider>
     </div>

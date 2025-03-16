@@ -6,6 +6,7 @@ import {
   fillBackupRestaurants,
   putCarouselItems,
   setUnserviceable,
+  setFilterItems,
 } from "../redux/slices/restaurantsSlice";
 
 const useAllRestaurants = () => {
@@ -43,14 +44,19 @@ const useAllRestaurants = () => {
       const carouselData =
         jsonData?.data?.cards[0]?.card?.card?.imageGridCards?.info;
 
+      const filterData = jsonData?.data?.cards[3].card.card;
+      console.log(filterData, "data");
+
       if (restaurantData) {
         dispatch(fillAllRestaurants(restaurantData));
         dispatch(fillBackupRestaurants(restaurantData));
         dispatch(putCarouselItems(carouselData));
+        dispatch(setFilterItems(filterData));
       } else {
         dispatch(fillAllRestaurants([]));
         dispatch(fillBackupRestaurants([]));
         dispatch(putCarouselItems([]));
+        dispatch(setFilterItems([]));
       }
     } catch (error) {
       console.log(error);

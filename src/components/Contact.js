@@ -3,9 +3,7 @@ import { useEffect } from "react";
 import * as Yup from "yup";
 
 const Contact = () => {
-  useEffect(() => {
-    console.log("Shivang Sharma");
-  }, []);
+  useEffect(() => {}, []);
   return (
     <Formik
       initialValues={{
