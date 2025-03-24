@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { FOOD_ICON } from "../../utils/constants";
+import { updateProfile } from "firebase/auth";
 
-const OtpVerification = ({ phoneNumber }) => {
+const OtpVerification = ({ data, confirmationResult }) => {
+  const { name, email, phoneNumber } = data;
+  const [otp, setOtp] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await confirmationResult.confirm(otp);
+      const user = res.user;
+
+      await updateProfile(user, {
+        displayName: name,
+        email: email,
+      });
+
+      console.log("User signed in: ", user);
+    } catch (error) {
+      setError("Invalid Otp, please try again");
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white px-6">
       <div className="w-full max-w-md p-6">
@@ -23,7 +45,7 @@ const OtpVerification = ({ phoneNumber }) => {
 
         <hr className="border-t-2 border-black w-10 my-4 mx-auto" />
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="phoneNumber"
@@ -35,12 +57,15 @@ const OtpVerification = ({ phoneNumber }) => {
           <input
             type="text"
             name="otp"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
             placeholder="One time password"
             className="w-full px-4 py-5 mt-4 font-semibold text-lg border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           <button className="w-full bg-orange-500 text-white font-semibold py-3 rounded-md mt-4 hover:bg-orange-600 transition">
             VERIFY OTP
           </button>
+          {error && <p className="text-red-500">{error}</p>}
         </form>
       </div>
     </div>
